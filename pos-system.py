@@ -1,7 +1,7 @@
-import pandas as pd
-import sys
-import datetime
-import os
+import pandas as pd  # CSVファイルの読み込みに使用
+import sys           # プログラムの終了に使用
+import datetime      # レシートファイル名に使用
+import os            # ディレクトリ作成に使用
 
 # 定数、変数
 CSV_PATH = "item_master.csv"
@@ -13,23 +13,23 @@ os.makedirs(RECEIPT_FOLDER, exist_ok=True)
 
 ### 商品クラス
 class Item:
-    def __init__(self,item_code,item_name,price):
-        self.item_code=item_code
-        self.item_name=item_name
-        self.price=price
+    def __init__(self, item_code, item_name, price):
+        self.item_code = item_code
+        self.item_name = item_name
+        self.price = price
     
     def get_price(self):
         return self.price
         
 ### オーダークラス
 class Order:
-    def __init__(self,item_master):
+    def __init__(self, item_master):
         self.item_order_list = []
         self.item_count_list = []
-        self.item_master=item_master
+        self.item_master = item_master
         self.set_datetime()
     
-    def add_item_order(self,item_code, item_count):
+    def add_item_order(self, item_code, item_count):
         self.item_order_list.append(item_code)
         self.item_count_list.append(item_count)
             
@@ -84,6 +84,9 @@ class Order:
         self.write_receipt("合計金額:￥{:,} {}個".format(self.sum_price,self.sum_count))
         
     def write_receipt(self, text):
+        '''
+        レシートファイルとして書き込み
+        '''
         print(text)
         with open(f"{RECEIPT_FOLDER}/{self.receipt_name}", mode="a", encoding="utf-8_sig") as f:
             f.write(text+"\n")
