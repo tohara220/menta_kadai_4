@@ -92,17 +92,15 @@ class Order:
                 break
             ### オーダー登録する
             if input_num in self.item_master_code_list:
-                # 商品番号
-                self.add_item_order(input_num)
-                # 数量
+                # 数量を入力
                 input_qt = input("続いて注文数量を入力してください。 >>")
                 if str(input_qt).isdecimal():
                     self.add_item_quantity(input_qt)
-                    print("個数の登録も完了しました。")
+                    # 商品番号を登録
+                    self.add_item_order(input_num)
+                    print("商品の登録が完了しました。")
                 else:
                     print("個数が正しく入力されていません。最初からやり直してください。")
-                    # 先ほど登録してしまった商品番号を削除する
-                    del self.item_order_list[-1]
                     continue
             else:
                 print("商品コードが不正です。番号を再確認の上、登録してください。")
